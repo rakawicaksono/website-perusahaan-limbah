@@ -12,7 +12,7 @@ let currentUser  = null;
 
 // ── Demo accounts ─────────────────────────────────────────
 const DEMO_ACCOUNTS = {
-  'admin@luasjaya.co.id': { password:'admin123',  nama:'Administrator',    peran:'Admin',   email:'admin@luasjaya.co.id',   hp:'081200000000' },
+  'admin@luasjaya.co.id': { password:'admin123',  nama:'Administrator',    peran:'Admin',   email:'admin@gmail.com',   hp:'081200000000' },
   'penjual@demo.com':     { password:'demo1234',  nama:'PT. Maju Jaya', peran:'Penjual', email:'penjual@demo.com',       hp:'081211112222' },
   'pembeli@demo.com':     { password:'demo1234',  nama:'Andi Santoso',  peran:'Pembeli', email:'pembeli@demo.com',       hp:'081233334444' },
 };
