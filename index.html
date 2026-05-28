@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UD. LUAS JAYA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <img src="asset/logo.png" alt="Logo UD. LUAS JAYA" class="logo-img">
+    UD. LUAS <span>JAYA</span>
+  </div>
+  <div class="nav-links" id="nav-links-landing">
+    <a href="#katalog">Katalog</a>
+    <a href="#cara-kerja">Cara Kerja</a>
+    <a href="#kategori">Kategori</a>
+    <a href="#tentang">Tentang</a>
+  </div>
+  <!-- GUEST: tombol masuk -->
+  <div class="nav-cta" id="nav-guest">
+    <button class="btn-primary" onclick="openModal('login')">Masuk</button>
+  </div>
+
+  <!-- LOGGED IN: menu per-role sejajar + avatar -->
+  <div class="nav-user-bar" id="nav-user" style="display:none">
+
+    <!-- Menu per-role (dinamis diisi JS) -->
+    <div class="nav-shortcuts" id="nav-role-menu"></div>
+
+    <!-- Divider -->
+    <div class="nsc-divider"></div>
+
+    <!-- Notifikasi Bell -->
+    <div class="notif-wrap" style="position:relative">
+      <button class="notif-bell-btn" id="notif-btn" onclick="toggleNotifPanel()" title="Notifikasi">
+        🔔
+        <span class="notif-badge-count" style="display:none">0</span>
+      </button>
+      <!-- Panel notif -->
+      <div class="notif-panel" id="notif-panel">
+        <div class="notif-panel-header">
+          <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem">🔔 Notifikasi</span>
+          <button onclick="markAllRead()" style="font-size:.75rem;color:var(--accent);background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif">Tandai semua dibaca</button>
+        </div>
+        <div id="notif-list"></div>
+      </div>
+    </div>
+
+    <!-- Avatar + dropdown keluar -->
+    <div class="nav-avatar-wrap" onclick="toggleUserDropdown()">
+      <div class="user-avatar" id="user-avatar-text">?</div>
+      <div class="user-info">
+        <div class="user-name" id="user-nav-name">Nama User</div>
+        <div class="user-role" id="user-nav-role">Pembeli</div>
+      </div>
+      <span class="user-chevron">▼</span>
+      <div class="user-dropdown" onclick="event.stopPropagation()">
+        <div class="dd-header">
+          <div class="dd-name" id="dd-name">Nama User</div>
+          <div class="dd-email" id="dd-email">email@contoh.com</div>
+        </div>
+        <div class="dd-item danger" onclick="doLogout()">🚪 &nbsp;Keluar</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════ LANDING PAGE -->
+<div id="landing-page">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Platform #1 Limbah Pabrik Indonesia
+    </div>
+    <h1>Jual Beli<br><em>Alat & Sarana Industri</em><br>Mudah & Aman</h1>
+    <p>UD. LUAS JAYA menghubungkan penjual alat & sarana industri dengan pembeli terpercaya di seluruh Indonesia. Proses transparan, pembayaran aman, dan pengiriman terjamin.</p>
+    <div class="hero-actions">
+      <button class="btn-hero btn-hero-primary" onclick="openModal('login')">Masuk Sekarang →</button>
+      <a href="#cara-kerja" class="btn-hero btn-hero-secondary">Lihat Cara Kerja</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">2.400+</div><div class="stat-label">Produk Aktif</div></div>
+      <div class="stat"><div class="stat-num">850+</div><div class="stat-label">Penjual Terverifikasi</div></div>
+      <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Transaksi Sukses</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="floating-card">
+      <div class="fc-header"><span class="fc-title">🔥 Produk Terlaris</span><span class="fc-badge">Live</span></div>
+      <div class="product-item">
+        <div class="pi-icon" style="background:rgba(82,183,136,0.15)">🔩</div>
+        <div class="pi-info"><div class="pi-name">Scrap Besi & Baja</div><div class="pi-loc">📍 Cikarang, Bekasi</div></div>
+        <div class="pi-price">Rp 4.500<br><span style="font-size:.65rem;color:rgba(255,255,255,.4);font-family:'DM Sans';font-weight:400">/kg</span></div>
+      </div>
+      <div class="product-item">
+        <div class="pi-icon" style="background:rgba(233,196,106,0.15)">🥤</div>
+        <div class="pi-info"><div class="pi-name">Limbah Plastik PET</div><div class="pi-loc">📍 Surabaya, Jatim</div></div>
+        <div class="pi-price">Rp 2.800<br><span style="font-size:.65rem;color:rgba(255,255,255,.4);font-family:'DM Sans';font-weight:400">/kg</span></div>
+      </div>
+      <div class="product-item">
+        <div class="pi-icon" style="background:rgba(244,162,97,0.15)">🔋</div>
+        <div class="pi-info"><div class="pi-name">Limbah Tembaga</div><div class="pi-loc">📍 Tangerang, Banten</div></div>
+        <div class="pi-price">Rp 68.000<br><span style="font-size:.65rem;color:rgba(255,255,255,.4);font-family:'DM Sans';font-weight:400">/kg</span></div>
+      </div>
+    </div>
+    <div class="fc2"><div class="mini-stat"><div class="ms-num">+128</div><div class="ms-label">Transaksi hari ini</div></div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="cara-kerja">
+  <div class="section-tag">Cara Kerja</div>
+  <div class="section-title">Mudah dalam 5 Langkah</div>
+  <p class="section-sub">Dari pendaftaran hingga transaksi selesai, semua terstruktur rapi dan transparan.</p>
+  <div class="flow-wrapper fade-up">
+    <div class="flow-step"><div class="flow-num">01</div><div class="flow-icon" style="background:rgba(82,183,136,.15)">📝</div><div class="flow-title">Daftar Akun</div><div class="flow-desc">Daftar gratis sebagai Penjual atau Pembeli. Verifikasi identitas untuk keamanan transaksi.</div></div>
+    <div class="flow-step"><div class="flow-num">02</div><div class="flow-icon" style="background:rgba(233,196,106,.15)">🔍</div><div class="flow-title">Lihat Katalog</div><div class="flow-desc">Jelajahi ribuan produk limbah berdasarkan jenis, lokasi, dan harga yang sesuai kebutuhan.</div></div>
+    <div class="flow-step"><div class="flow-num">03</div><div class="flow-icon" style="background:rgba(244,162,97,.15)">🤝</div><div class="flow-title">Buat Pesanan</div><div class="flow-desc">Pesan langsung atau negosiasi harga via chat. Penjual akan mengkonfirmasi pesanan Anda.</div></div>
+    <div class="flow-step"><div class="flow-num">04</div><div class="flow-icon" style="background:rgba(116,198,157,.15)">💳</div><div class="flow-title">Bayar Aman</div><div class="flow-desc">Pembayaran via transfer bank, e-wallet, atau virtual account. Dana aman disimpan dulu.</div></div>
+    <div class="flow-step"><div class="flow-num">05</div><div class="flow-icon" style="background:rgba(82,183,136,.15)">🚚</div><div class="flow-title">Terima Barang</div><div class="flow-desc">Lacak pengiriman secara real-time. Dana diteruskan ke penjual setelah barang diterima.</div></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="kategori">
+  <div class="section-tag">Kategori Limbah</div>
+  <div class="section-title">Temukan Limbah<br>Sesuai Kebutuhan</div>
+  <div class="cat-grid fade-up">
+    <div class="cat-card"><span class="cat-emoji">🔩</span><div class="cat-name">Logam & Besi</div><div class="cat-count">342 produk</div></div>
+    <div class="cat-card"><span class="cat-emoji">🥤</span><div class="cat-name">Plastik</div><div class="cat-count">289 produk</div></div>
+    <div class="cat-card"><span class="cat-emoji">📦</span><div class="cat-name">Kertas & Karton</div><div class="cat-count">217 produk</div></div>
+    <div class="cat-card"><span class="cat-emoji">⚡</span><div class="cat-name">Elektronik</div><div class="cat-count">158 produk</div></div>
+    <div class="cat-card"><span class="cat-emoji">🪵</span><div class="cat-name">Kayu</div><div class="cat-count">134 produk</div></div>
+    <div class="cat-card"><span class="cat-emoji">🧴</span><div class="cat-name">Kimia & Oli</div><div class="cat-count">98 produk</div></div>
+    <div class="cat-card"><span class="cat-emoji">🏭</span><div class="cat-name">Tekstil Industri</div><div class="cat-count">76 produk</div></div>
+    <div class="cat-card"><span class="cat-emoji">🔋</span><div class="cat-name">Baterai & Aki</div><div class="cat-count">65 produk</div></div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="katalog">
+  <div class="products-header">
+    <div><div class="section-tag">Katalog Produk</div><div class="section-title" style="font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:0">Produk Pilihan</div></div>
+    <div class="filter-tabs">
+      <button class="ftab active">Semua</button>
+      <button class="ftab">Logam</button>
+      <button class="ftab">Plastik</button>
+      <button class="ftab">Kertas</button>
+      <button class="ftab">Elektronik</button>
+    </div>
+  </div>
+  <div class="product-grid fade-up">
+    <div class="prod-card"><div class="prod-img" style="background:rgba(82,183,136,.08)">🔩<span class="prod-badge">Stok Banyak</span></div><div class="prod-body"><div class="prod-name">Scrap Besi Campuran</div><div class="prod-meta">📍 Cikarang, Bekasi · 5.000 kg</div><div class="prod-footer"><div class="prod-price">Rp 4.500 <span class="prod-unit">/kg</span></div><button class="prod-btn" onclick="openOrderModal(1)">Pesan</button></div></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:rgba(233,196,106,.08)">🥤<span class="prod-badge">Terlaris</span></div><div class="prod-body"><div class="prod-name">Limbah Plastik PET Bersih</div><div class="prod-meta">📍 Surabaya, Jawa Timur · 2.000 kg</div><div class="prod-footer"><div class="prod-price">Rp 2.800 <span class="prod-unit">/kg</span></div><button class="prod-btn" onclick="openOrderModal(2)">Pesan</button></div></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:rgba(244,162,97,.08)">🔋<span class="prod-badge">Premium</span></div><div class="prod-body"><div class="prod-name">Tembaga Kabel Stripped</div><div class="prod-meta">📍 Tangerang, Banten · 300 kg</div><div class="prod-footer"><div class="prod-price">Rp 68.000 <span class="prod-unit">/kg</span></div><button class="prod-btn" onclick="openOrderModal(3)">Pesan</button></div></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:rgba(116,198,157,.08)">📦<span class="prod-badge">Murah</span></div><div class="prod-body"><div class="prod-name">Karton Duplex Bekas</div><div class="prod-meta">📍 Bandung, Jawa Barat · 10 ton</div><div class="prod-footer"><div class="prod-price">Rp 1.200 <span class="prod-unit">/kg</span></div><button class="prod-btn" onclick="openOrderModal(4)">Pesan</button></div></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:rgba(82,183,136,.08)">⚡<span class="prod-badge">Nego</span></div><div class="prod-body"><div class="prod-name">PCB Elektronik Bekas</div><div class="prod-meta">📍 Karawang, Jawa Barat · 500 kg</div><div class="prod-footer"><div class="prod-price">Rp 15.000 <span class="prod-unit">/kg</span></div><button class="prod-btn" onclick="openOrderModal(5)">Pesan</button></div></div></div>
+    <div class="prod-card"><div class="prod-img" style="background:rgba(233,196,106,.08)">🪵<span class="prod-badge">Stok Banyak</span></div><div class="prod-body"><div class="prod-name">Palet Kayu Bekas</div><div class="prod-meta">📍 Semarang, Jawa Tengah · 200 unit</div><div class="prod-footer"><div class="prod-price">Rp 35.000 <span class="prod-unit">/pcs</span></div><button class="prod-btn" onclick="openOrderModal(6)">Pesan</button></div></div></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="whyus" id="tentang">
+  <div class="section-tag">Keunggulan Kami</div>
+  <div class="section-title">Kenapa Pilih<br>UD. LUAS JAYA?</div>
+  <div class="why-grid">
+    <div class="why-list fade-up">
+      <div class="why-item"><div class="why-icon-wrap" style="background:rgba(82,183,136,.15)">🛡️</div><div class="why-text"><h3>Transaksi 100% Aman</h3><p>Dana pembeli ditahan oleh sistem escrow kami hingga barang diterima dan dikonfirmasi.</p></div></div>
+      <div class="why-item"><div class="why-icon-wrap" style="background:rgba(233,196,106,.15)">✅</div><div class="why-text"><h3>Penjual Terverifikasi</h3><p>Setiap penjual melewati proses verifikasi identitas dan dokumen perusahaan.</p></div></div>
+      <div class="why-item"><div class="why-icon-wrap" style="background:rgba(244,162,97,.15)">🚚</div><div class="why-text"><h3>Pengiriman Terlacak</h3><p>Lacak status pengiriman secara real-time dari pickup hingga barang tiba di tujuan.</p></div></div>
+      <div class="why-item"><div class="why-icon-wrap" style="background:rgba(116,198,157,.15)">💬</div><div class="why-text"><h3>Negosiasi Langsung</h3><p>Chat langsung antara pembeli dan penjual untuk negosiasi harga dan jadwal pengiriman.</p></div></div>
+    </div>
+    <div class="why-visual fade-up">
+      <div class="wv-title">📊 Statistik Platform</div>
+      <div class="progress-item"><div class="pi-top"><span class="pi-label">Tingkat Kepuasan Pengguna</span><span class="pi-pct">96%</span></div><div class="pi-bar"><div class="pi-fill" style="width:96%"></div></div></div>
+      <div class="progress-item"><div class="pi-top"><span class="pi-label">Transaksi Berhasil</span><span class="pi-pct">98%</span></div><div class="pi-bar"><div class="pi-fill" style="width:98%"></div></div></div>
+      <div class="progress-item"><div class="pi-top"><span class="pi-label">Pengiriman Tepat Waktu</span><span class="pi-pct">91%</span></div><div class="pi-bar"><div class="pi-fill" style="width:91%"></div></div></div>
+      <div class="progress-item"><div class="pi-top"><span class="pi-label">Produk Terverifikasi</span><span class="pi-pct">100%</span></div><div class="pi-bar"><div class="pi-fill" style="width:100%"></div></div></div>
+      <div class="review-item"><div class="ri-stars">★★★★★</div><div class="ri-text">"UD. LUAS JAYA sangat membantu bisnis kami. Mudah jual limbah besi, pembayaran cair cepat!"</div><div class="ri-author">— Budi S., Penjual dari Bekasi · 5 bulan lalu</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-banner">
+  <h2>Siap Mulai Transaksi Limbah<br>yang Lebih Mudah?</h2>
+  <p>Platform jual beli alat & sarana industri terpercaya UD. LUAS JAYA.</p>
+  <div class="cta-actions">
+    <button class="btn-cta-white" onclick="openModal('login')">Masuk ke Platform</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:14px"><img src="asset/logo.png" alt="Logo UD. LUAS JAYA" class="logo-img">CV. Luas <span>Jaya</span></div>
+      <p>Platform jual beli alat & sarana industri terpercaya di Indonesia. Menghubungkan industri dengan solusi daur ulang yang berkelanjutan.</p>
+      <div class="footer-contact">
+        <div class="fc-item">📧 info@luasjaya.co.id</div>
+        <div class="fc-item">📞 (021) 555-0198</div>
+        <div class="fc-item">📍 Jakarta Pusat, DKI Jakarta</div>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Platform</h4><ul><li><a href="#">Katalog Produk</a></li><li><a href="#">Cara Kerja</a></li><li><a href="#">Harga & Komisi</a></li><li><a href="#">Verifikasi Akun</a></li></ul></div>
+    <div class="footer-col"><h4>Perusahaan</h4><ul><li><a href="#">Tentang Kami</a></li><li><a href="#">Blog & Berita</a></li><li><a href="#">Karir</a></li><li><a href="#">Hubungi Kami</a></li></ul></div>
+    <div class="footer-col"><h4>Bantuan</h4><ul><li><a href="#">FAQ</a></li><li><a href="#">Kebijakan Privasi</a></li><li><a href="#">Syarat & Ketentuan</a></li><li><a href="#">Pusat Bantuan</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 UD. LUAS JAYA. Seluruh hak cipta dilindungi.</p>
+    <div class="socials">
+      <a class="social-btn" href="#">in</a>
+      <a class="social-btn" href="#">fb</a>
+      <a class="social-btn" href="#">ig</a>
+      <a class="social-btn" href="#">wa</a>
+    </div>
+  </div>
+</footer>
+</div><!-- /#landing-page -->
+
+
+<!-- ═══════════════════════════════════════════ DASHBOARD PEMBELI -->
+<div id="dashboard-pembeli" class="dashboard hidden">
+  <div class="db-sidebar" id="sidebar-pembeli">
+    <div class="db-brand"><img src="asset/logo.png" alt="Logo UD. LUAS JAYA" class="logo-img"><span>UD. LUAS JAYA</span></div>
+    <div class="db-user-card">
+      <div class="db-avatar" id="db-avatar-pembeli">?</div>
+      <div class="db-user-info">
+        <div class="db-user-name" id="db-name-pembeli">Nama User</div>
+        <div class="db-user-badge buyer">🛒 Pembeli</div>
+      </div>
+    </div>
+    <nav class="db-nav">
+      <a class="db-nav-item active" onclick="switchTab('pembeli','beranda')">
+        <span>🏠</span>Beranda
+      </a>
+      <a class="db-nav-item" onclick="switchTab('pembeli','katalog')">
+        <span>🛍️</span>Katalog
+      </a>
+      <a class="db-nav-item" onclick="switchTab('pembeli','pesanan')">
+        <span>📦</span>Pesanan Saya
+      </a>
+      <a class="db-nav-item" onclick="switchTab('pembeli','favorit')">
+        <span>❤️</span>Favorit
+      </a>
+      <a class="db-nav-item" onclick="switchTab('pembeli','profil')">
+        <span>👤</span>Profil
+      </a>
+    </nav>
+  </div>
+
+  <div class="db-main">
+    <div class="db-topbar">
+      <div class="db-page-title" id="db-title-pembeli">Dashboard Pembeli</div>
+      <div class="db-tab active" id="tab-pembeli-beranda">
+        <div class="db-section-title">Pesanan Terbaru</div>
+        <div class="order-list" id="order-list-pembeli"></div>
+      </div>
+      <div class="db-tab" id="tab-pembeli-katalog">
+      <div class="db-toolbar" style="margin-bottom:16px">
+        <input class="db-search" style="flex:1" type="text" placeholder="🔍  Cari produk, kategori, lokasi…" oninput="searchKatalog(this.value)" />
+      </div><div class="db-product-grid" id="katalog-pembeli"></div></div>
+      <div class="db-tab" id="tab-pembeli-pesanan">
+        <div class="order-list full" id="order-full-pembeli"></div>
+      </div>
+      <div class="db-topbar-actions">
+        <div class="db-notif">🔔<span class="notif-dot"></span></div>
+        <div class="db-topbar-avatar" id="topbar-avatar-pembeli">?</div>
+      </div>
+    </div>
+
+    <!-- TAB: BERANDA -->
+    <div class="db-tab active" id="tab-pembeli-beranda">
+      <div class="welcome-banner buyer-banner">
+        <div class="wb-text">
+          <div class="wb-greeting" id="wb-greeting-pembeli">Selamat datang!</div>
+          <div class="wb-sub">Temukan bahan baku industri terbaik hari ini</div>
+        </div>
+        <div class="wb-cta" onclick="switchTab('pembeli','katalog')">Cari Produk →</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(99,102,241,.15)">📦</div><div class="sc-info"><div class="sc-num">3</div><div class="sc-label">Pesanan Aktif</div></div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(34,211,238,.12)">✅</div><div class="sc-info"><div class="sc-num">12</div><div class="sc-label">Pesanan Selesai</div></div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(167,139,250,.12)">❤️</div><div class="sc-info"><div class="sc-num">8</div><div class="sc-label">Produk Favorit</div></div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(244,162,97,.12)">💬</div><div class="sc-info"><div class="sc-num">2</div><div class="sc-label">Pesan Belum Dibaca</div></div></div>
+      </div>
+      <div class="db-section-title">Pesanan Terbaru</div>
+      <div class="order-list" id="order-list-pembeli"></div>
+      <div class="db-section-title" style="margin-top:2rem">Rekomendasi Untukmu</div>
+      <div class="mini-product-grid" id="rekomen-pembeli"></div>
+    </div>
+
+    <!-- TAB: KATALOG -->
+    <div class="db-tab" id="tab-pembeli-katalog">
+      <div class="search-bar-wrap">
+        <input class="db-search" type="text" id="katalog-search-input" placeholder="🔍  Cari produk, kategori, lokasi…" oninput="searchKatalog(this.value)" />
+        <button class="db-search-btn" onclick="searchKatalog(document.getElementById('katalog-search-input').value)">Cari</button>
+      </div>
+      <div class="filter-chips">
+        <span class="chip active" onclick="filterKatalogChip('',this)">Semua</span>
+        <span class="chip" onclick="filterKatalogChip('Logam',this)">Logam</span>
+        <span class="chip" onclick="filterKatalogChip('Plastik',this)">Plastik</span>
+        <span class="chip" onclick="filterKatalogChip('Kertas',this)">Kertas</span>
+        <span class="chip" onclick="filterKatalogChip('Elektronik',this)">Elektronik</span>
+        <span class="chip" onclick="filterKatalogChip('Kayu',this)">Kayu</span>
+      </div>
+      <div class="db-product-grid" id="katalog-pembeli"></div>
+    </div>
+
+    <!-- TAB: PESANAN -->
+    <div class="db-tab" id="tab-pembeli-pesanan">
+      <div class="order-tabs">
+        <button class="otab active" onclick="filterOrders('pembeli','semua',this)">Semua</button>
+        <button class="otab" onclick="filterOrders('pembeli','menunggu',this)">Menunggu</button>
+        <button class="otab" onclick="filterOrders('pembeli','diproses',this)">Diproses</button>
+        <button class="otab" onclick="filterOrders('pembeli','dikirim',this)">Dikirim</button>
+        <button class="otab" onclick="filterOrders('pembeli','selesai',this)">Selesai</button>
+      </div>
+      <div class="order-list full" id="order-full-pembeli"></div>
+    </div>
+
+    <!-- TAB: FAVORIT -->
+    <div class="db-tab" id="tab-pembeli-favorit">
+      <div class="db-product-grid" id="favorit-pembeli"></div>
+    </div>
+
+    <!-- TAB: PROFIL -->
+    <div class="db-tab" id="tab-pembeli-profil">
+      <div class="profil-card">
+        <div class="profil-avatar-big" id="profil-avatar-pembeli">?</div>
+        <div class="profil-info">
+          <div class="profil-name" id="profil-name-pembeli">Nama User</div>
+          <div class="profil-badge buyer-badge">🛒 Pembeli Terverifikasi</div>
+        </div>
+      </div>
+      <div class="profil-form">
+        <div class="pf-row"><label>Nama Lengkap</label><input class="form-input" id="pf-nama-pembeli" type="text" /></div>
+        <div class="pf-row"><label>Email</label><input class="form-input" id="pf-email-pembeli" type="email" /></div>
+        <div class="pf-row"><label>No. HP</label><input class="form-input" id="pf-hp-pembeli" type="tel" /></div>
+        <div class="pf-row"><label>Lokasi</label><input class="form-input" type="text" placeholder="Kota, Provinsi" /></div>
+        <button class="form-submit" style="width:auto;padding:12px 32px;margin-top:8px" onclick="showToast('success','Profil Disimpan','Data profil berhasil diperbarui.')">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ DASHBOARD PENJUAL -->
+<div id="dashboard-penjual" class="dashboard hidden">
+  <div class="db-sidebar" id="sidebar-penjual">
+    <div class="db-brand"><img src="asset/logo.png" alt="Logo UD. LUAS JAYA" class="logo-img"><span>UD. LUAS JAYA</span></div>
+    <div class="db-user-card">
+      <div class="db-avatar seller" id="db-avatar-penjual">?</div>
+      <div class="db-user-info">
+        <div class="db-user-name" id="db-name-penjual">Nama User</div>
+        <div class="db-user-badge seller">🏭 Penjual</div>
+      </div>
+    </div>
+    <nav class="db-nav">
+      <a class="db-nav-item active" onclick="switchTab('penjual','beranda')"><span>🏠</span>Dashboard</a>
+      <a class="db-nav-item" onclick="switchTab('penjual','produk')"><span>📋</span>Produk Saya</a>
+      <a class="db-nav-item" onclick="switchTab('penjual','pesanan')"><span>📦</span>Pesanan Masuk<span class="nav-badge seller-badge" id="badge-pesanan-penjual">5</span></a>
+      <a class="db-nav-item" onclick="switchTab('penjual','pendapatan')"><span>💰</span>Pendapatan</a>
+      <a class="db-nav-item" onclick="switchTab('penjual','profil')"><span>👤</span>Profil Toko</a>
+    </nav>
+  </div>
+
+  <div class="db-main">
+    <div class="db-topbar">
+      <div class="db-page-title" id="db-title-penjual">Dashboard Penjual</div>
+      <div class="db-topbar-actions">
+        <button class="db-add-btn" onclick="openAddProduct()">+ Tambah Produk</button>
+        <div class="db-tab active" id="tab-penjual-beranda">
+          <div class="db-section-title">Pesanan Masuk Terbaru</div>
+          <div class="order-list" id="order-list-penjual"></div>
+        </div>
+        <div class="db-tab" id="tab-penjual-produk"><div class="my-products-grid" id="my-products-grid"></div></div>
+        <div class="db-tab" id="tab-penjual-pesanan">
+          <div class="order-list full" id="order-full-penjual"></div>
+        </div>
+        <div class="db-notif">🔔<span class="notif-dot"></span></div>
+        <div class="db-topbar-avatar seller" id="topbar-avatar-penjual">?</div>
+      </div>
+    </div>
+
+    <!-- TAB: BERANDA PENJUAL -->
+    <div class="db-tab active" id="tab-penjual-beranda">
+      <div class="welcome-banner seller-banner">
+        <div class="wb-text">
+          <div class="wb-greeting" id="wb-greeting-penjual">Selamat datang!</div>
+          <div class="wb-sub">Ada 5 pesanan baru menunggu konfirmasi Anda</div>
+        </div>
+        <div class="wb-cta seller-cta" onclick="switchTab('penjual','pesanan')">Lihat Pesanan →</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(99,102,241,.15)">📦</div><div class="sc-info"><div class="sc-num">5</div><div class="sc-label">Pesanan Baru</div></div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(34,211,238,.12)">📋</div><div class="sc-info"><div class="sc-num">18</div><div class="sc-label">Produk Aktif</div></div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(167,139,250,.12)">💰</div><div class="sc-info"><div class="sc-num">Rp 8,4 Jt</div><div class="sc-label">Pendapatan Bulan Ini</div></div></div>
+        <div class="stat-card"><div class="sc-icon" style="background:rgba(34,197,94,.12)">⭐</div><div class="sc-info"><div class="sc-num">4.8</div><div class="sc-label">Rating Toko</div></div></div>
+      </div>
+      <div class="db-two-col">
+        <div>
+          <div class="db-section-title">Pesanan Masuk Terbaru</div>
+          <div class="order-list" id="order-list-penjual"></div>
+        </div>
+        <div>
+          <div class="db-section-title">Performa Produk</div>
+          <div class="perf-list" id="perf-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: PRODUK SAYA -->
+    <div class="db-tab" id="tab-penjual-produk">
+      <div class="db-toolbar">
+        <input class="db-search" style="flex:1" type="text" placeholder="🔍  Cari produk Anda…" />
+        <button class="db-add-btn" onclick="openAddProduct()">+ Tambah Produk</button>
+      </div>
+      <div class="my-products-grid" id="my-products-grid"></div>
+    </div>
+
+    <!-- TAB: PESANAN MASUK -->
+    <div class="db-tab" id="tab-penjual-pesanan">
+      <div class="order-tabs">
+        <button class="otab active" onclick="filterOrders('penjual','semua',this)">Semua</button>
+        <button class="otab" onclick="filterOrders('penjual','baru',this)">Baru</button>
+        <button class="otab" onclick="filterOrders('penjual','dikonfirmasi',this)">Dikonfirmasi</button>
+        <button class="otab" onclick="filterOrders('penjual','dikirim',this)">Dikirim</button>
+        <button class="otab" onclick="filterOrders('penjual','selesai',this)">Selesai</button>
+      </div>
+      <div class="order-list full" id="order-full-penjual"></div>
+    </div>
+
+    <!-- TAB: PENDAPATAN -->
+    <div class="db-tab" id="tab-penjual-pendapatan">
+      <!-- Download buttons -->
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+        <button class="oa-btn primary" onclick="downloadLaporanPDF()">🖨️ Cetak / Download PDF</button>
+        <button class="oa-btn ghost" onclick="downloadLaporanCSV()">📊 Export Pesanan CSV</button>
+        <button class="oa-btn ghost" onclick="downloadLaporanPengguna()">👥 Export Pengguna CSV</button>
+      </div>
+      <div class="income-summary">
+        <div class="income-card main"><div class="ic-label">Total Pendapatan Bulan Ini</div><div class="ic-num">Rp 8.400.000</div><div class="ic-trend">↑ 18% dari bulan lalu</div></div>
+        <div class="income-card"><div class="ic-label">Menunggu Pencairan</div><div class="ic-num">Rp 2.100.000</div></div>
+        <div class="income-card"><div class="ic-label">Sudah Dicairkan</div><div class="ic-num">Rp 6.300.000</div></div>
+      </div>
+      <div class="db-section-title" style="margin-top:2rem">Riwayat Transaksi</div>
+      <div class="income-history" id="income-history"></div>
+    </div>
+
+    <!-- TAB: PROFIL TOKO -->
+    <div class="db-tab" id="tab-penjual-profil">
+      <div class="profil-card">
+        <div class="profil-avatar-big seller" id="profil-avatar-penjual">?</div>
+        <div class="profil-info">
+          <div class="profil-name" id="profil-name-penjual">Nama User</div>
+          <div class="profil-badge seller-badge">🏭 Penjual Terverifikasi</div>
+        </div>
+      </div>
+      <div class="profil-form">
+        <div class="pf-row"><label>Nama Toko / Perusahaan</label><input class="form-input" id="pf-nama-penjual" type="text" /></div>
+        <div class="pf-row"><label>Email</label><input class="form-input" id="pf-email-penjual" type="email" /></div>
+        <div class="pf-row"><label>No. HP</label><input class="form-input" id="pf-hp-penjual" type="tel" /></div>
+        <div class="pf-row"><label>Alamat Toko</label><input class="form-input" type="text" placeholder="Jalan, Kota, Provinsi" /></div>
+        <div class="pf-row"><label>Deskripsi Toko</label><textarea class="form-input" rows="3" placeholder="Ceritakan tentang toko Anda…" style="resize:vertical"></textarea></div>
+        <button class="form-submit" style="width:auto;padding:12px 32px;margin-top:8px" onclick="showToast('success','Profil Disimpan','Data toko berhasil diperbarui.')">Simpan Perubahan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ DASHBOARD ADMIN -->
+<div id="dashboard-admin" class="dashboard hidden">
+  <div class="db-sidebar admin-sidebar">
+    <div class="db-brand"><img src="asset/logo.png" alt="Logo UD. LUAS JAYA" class="logo-img"><span>Admin Panel</span></div>
+    <div class="db-user-card">
+      <div class="db-avatar admin" id="db-avatar-admin">?</div>
+      <div class="db-user-info">
+        <div class="db-user-name" id="db-name-admin">Admin</div>
+        <div class="db-user-badge admin-badge">⚙️ Administrator</div>
+      </div>
+    </div>
+    <nav class="db-nav">
+      <a class="db-nav-item active" onclick="switchTab('admin','overview')"><span>📊</span>Overview</a>
+      <a class="db-nav-item" onclick="switchTab('admin','pengguna')"><span>👥</span>Pengguna<span class="nav-badge admin-badge-nav" id="badge-pengguna">3</span></a>
+      <a class="db-nav-item" onclick="switchTab('admin','pesanan')"><span>📦</span>Semua Pesanan</a>
+      <a class="db-nav-item" onclick="switchTab('admin','produk')"><span>📋</span>Manajemen Produk</a>
+      <a class="db-nav-item" onclick="switchTab('admin','laporan')"><span>📈</span>Laporan</a>
+    </nav>
+  </div>
+
+  <div class="db-main">
+    <div class="db-topbar admin-topbar">
+      <div class="db-page-title">Admin Panel — UD. LUAS JAYA</div>
+      <div class="db-topbar-actions">
+        <div class="db-notif admin-notif">🔔<span class="notif-dot admin-dot"></span></div>
+        <div class="db-topbar-avatar admin" id="topbar-avatar-admin">A</div>
+      </div>
+    </div>
+
+    <!-- TAB: OVERVIEW -->
+    <div class="db-tab active" id="tab-admin-overview">
+      <div class="stats-row quad">
+        <div class="stat-card admin-stat"><div class="sc-icon" style="background:rgba(99,102,241,.2)">👥</div><div class="sc-info"><div class="sc-num">3.240</div><div class="sc-label">Total Pengguna</div><div class="sc-trend admin-trend">↑ 124 minggu ini</div></div></div>
+        <div class="stat-card admin-stat"><div class="sc-icon" style="background:rgba(34,211,238,.15)">📦</div><div class="sc-info"><div class="sc-num">1.872</div><div class="sc-label">Total Pesanan</div><div class="sc-trend admin-trend">↑ 48 hari ini</div></div></div>
+        <div class="stat-card admin-stat"><div class="sc-icon" style="background:rgba(34,197,94,.15)">💰</div><div class="sc-info"><div class="sc-num">Rp 284 Jt</div><div class="sc-label">Volume Transaksi</div><div class="sc-trend admin-trend">Bulan ini</div></div></div>
+        <div class="stat-card admin-stat"><div class="sc-icon" style="background:rgba(244,162,97,.15)">📋</div><div class="sc-info"><div class="sc-num">2.441</div><div class="sc-label">Produk Aktif</div><div class="sc-trend admin-trend">18 baru hari ini</div></div></div>
+      </div>
+      <div class="db-two-col">
+        <div>
+          <div class="db-section-title">Pesanan Terbaru</div>
+          <div class="order-list" id="order-list-admin"></div>
+        </div>
+        <div>
+          <div class="db-section-title">Pengguna Terdaftar Baru</div>
+          <div class="new-users-list" id="new-users-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: PENGGUNA -->
+    <div class="db-tab" id="tab-admin-pengguna">
+      <div class="db-toolbar">
+        <input class="db-search" style="flex:1" type="text" placeholder="🔍  Cari pengguna…" />
+        <select class="db-select"><option>Semua Peran</option><option>Penjual</option><option>Pembeli</option><option>Admin</option></select>
+        <select class="db-select"><option>Semua Status</option><option>Aktif</option><option>Terverifikasi</option><option>Suspend</option></select>
+        <button class="db-add-btn" onclick="openTambahPengguna()">+ Tambah Pengguna</button>
+      </div>
+      <div class="user-table" id="user-table"></div>
+    </div>
+
+    <!-- TAB: SEMUA PESANAN -->
+    <div class="db-tab" id="tab-admin-pesanan">
+      <div class="order-tabs">
+        <button class="otab admin-otab active" onclick="filterAdminOrders('semua',this)">Semua</button>
+        <button class="otab admin-otab" onclick="filterAdminOrders('menunggu',this)">Menunggu Bayar</button>
+        <button class="otab admin-otab" onclick="filterAdminOrders('diproses',this)">Diproses</button>
+        <button class="otab admin-otab" onclick="filterAdminOrders('dikonfirmasi',this)">Dikonfirmasi</button>
+        <button class="otab admin-otab" onclick="filterAdminOrders('dikirim',this)">Dikirim</button>
+        <button class="otab admin-otab" onclick="filterAdminOrders('selesai',this)">Selesai</button>
+        <button class="otab admin-otab" onclick="filterAdminOrders('dispute',this)">Dispute 🔴</button>
+      </div>
+      <div class="order-list full admin-orders" id="order-full-admin"></div>
+    </div>
+    <div class="db-tab" id="tab-admin-produk">
+      <div class="db-toolbar">
+        <input class="db-search" style="flex:1" type="text" placeholder="🔍  Cari produk…" />
+        <select class="db-select"><option>Semua Kategori</option><option>Logam</option><option>Plastik</option><option>Kertas</option><option>Elektronik</option></select>
+        <select class="db-select"><option>Semua Status</option><option>Aktif</option><option>Pending Review</option><option>Suspend</option></select>
+        <button class="db-add-btn" onclick="openTambahPesananAdmin()">+ Tambah Pesanan</button>
+        <button class="db-add-btn" style="background:linear-gradient(135deg,var(--violet),var(--primary))" onclick="openTambahProdukAdmin()">+ Tambah Produk</button>
+      </div>
+      <div class="admin-product-table" id="admin-product-table"></div>
+    </div>
+
+    <!-- TAB: LAPORAN -->
+    <div class="db-tab" id="tab-admin-laporan">
+      <!-- Download Buttons -->
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+        <button class="oa-btn primary" onclick="downloadLaporanPDF()">🖨️ Cetak / Download PDF</button>
+        <button class="oa-btn ghost" onclick="downloadLaporanCSV()">📊 Export Pesanan CSV</button>
+        <button class="oa-btn ghost" onclick="downloadLaporanPengguna()">👥 Export Pengguna CSV</button>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card admin-stat"><div class="sc-icon" style="background:rgba(34,197,94,.15)">📈</div><div class="sc-info"><div class="sc-num">↑ 23%</div><div class="sc-label">Pertumbuhan Bulan Ini</div></div></div>
+        <div class="stat-card admin-stat"><div class="sc-icon" style="background:rgba(99,102,241,.2)">🏆</div><div class="sc-info"><div class="sc-num">Logam & Besi</div><div class="sc-label">Kategori Terlaris</div></div></div>
+        <div class="stat-card admin-stat"><div class="sc-icon" style="background:rgba(244,162,97,.15)">📍</div><div class="sc-info"><div class="sc-num">Banten</div><div class="sc-label">Wilayah Transaksi Terbanyak</div></div></div>
+      </div>
+      <div class="income-summary">
+        <div class="income-card main"><div class="ic-label">Total Omzet Platform (Bulan Ini)</div><div class="ic-num">Rp 284.700.000</div><div class="ic-trend">↑ 23% dari bulan lalu</div></div>
+        <div class="income-card"><div class="ic-label">Komisi Platform</div><div class="ic-num">Rp 14.235.000</div></div>
+        <div class="income-card"><div class="ic-label">Refund & Dispute</div><div class="ic-num">Rp 1.200.000</div></div>
+      </div>
+      <div class="db-section-title" style="margin-top:2rem">Top 5 Penjual Bulan Ini</div>
+      <div class="top-sellers" id="top-sellers"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ MODAL MASUK (LOGIN) -->
+<div class="modal-overlay" id="login-modal" onclick="closeLoginModal(event)">
+  <div class="modal modal-dedicated">
+    <button class="modal-close" onclick="closeLoginModal()">✕</button>
+    <div class="modal-inner">
+      <div class="modal-brand-badge">🔐 Masuk</div>
+      <div class="modal-title">Selamat Datang</div>
+      <div class="modal-sub">Masuk ke platform UD. LUAS JAYA</div>
+
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="login-email" type="text" placeholder="contoh@email.com" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="login-password" type="password" placeholder="Masukkan password" />
+      </div>
+      <div style="text-align:right;margin-bottom:20px"><a href="#" class="lupa-pass" onclick="openForgotPassword(event)">Lupa Password?</a></div>
+      <button class="form-submit" onclick="handleLogin()">Masuk ke Akun →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ MODAL TAMBAH PRODUK -->
+<div class="modal-overlay" id="modal-produk" onclick="closeProductModal(event)">
+  <div class="modal" style="max-width:520px">
+    <button class="modal-close" onclick="closeProductModal()">✕</button>
+    <div class="modal-inner">
+      <div class="modal-title">Tambah Produk Baru 📋</div>
+      <div class="modal-sub">Isi detail produk limbah yang ingin Anda jual</div>
+      <div class="form-group"><label class="form-label">Nama Produk</label><input class="form-input" id="prod-nama" type="text" placeholder="Contoh: Scrap Besi Campuran" /></div>
+      <div class="form-group"><label class="form-label">Kategori</label>
+        <select class="form-input" id="prod-kategori">
+          <option value="">Pilih Kategori</option>
+          <option>Logam & Besi</option><option>Plastik</option><option>Kertas & Karton</option>
+          <option>Elektronik</option><option>Kayu</option><option>Kimia & Oli</option>
+          <option>Tekstil Industri</option><option>Baterai & Aki</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">Harga (Rp/kg)</label><input class="form-input" id="prod-harga" type="number" placeholder="0" /></div>
+        <div class="form-group"><label class="form-label">Stok (kg)</label><input class="form-input" id="prod-stok" type="number" placeholder="0" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">Lokasi</label><input class="form-input" id="prod-lokasi" type="text" placeholder="Kota, Provinsi" /></div>
+      <div class="form-group"><label class="form-label">Deskripsi</label><textarea class="form-input" id="prod-desc" rows="3" placeholder="Kondisi, spesifikasi, catatan khusus…" style="resize:vertical"></textarea></div>
+      <button class="form-submit" onclick="submitProduct()">Upload Produk →</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════ MODAL DETAIL PESANAN -->
+<div class="modal-overlay" id="modal-order" onclick="closeOrderModal(event)">
+  <div class="modal" style="max-width:500px">
+    <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    <div class="modal-inner" id="modal-order-content"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MODAL LUPA PASSWORD -->
+<div class="modal-overlay" id="modal-forgot" onclick="closeForgotModal(event)">
+  <div class="modal" style="max-width:420px">
+    <button class="modal-close" onclick="closeForgotModal()">✕</button>
+    <div class="modal-inner">
+      <!-- Step 1: Verifikasi Email -->
+      <div id="forgot-step1">
+        <div class="modal-title">Lupa Password 🔑</div>
+        <div class="modal-sub">Masukkan email terdaftar untuk mereset password</div>
+        <div class="form-group">
+          <label class="form-label">Email Terdaftar</label>
+          <input class="form-input" id="forgot-email" type="email" placeholder="contoh@email.com" />
+        </div>
+        <button class="form-submit" onclick="handleForgotStep1()">Kirim Kode Reset →</button>
+        <p style="text-align:center;margin-top:14px;font-size:.8rem;color:var(--muted)">Ingat password? <a href="#" style="color:var(--accent)" onclick="closeForgotModal();openModal('login')">Masuk di sini</a></p>
+      </div>
+      <!-- Step 2: Masukkan Kode OTP -->
+      <div id="forgot-step2" style="display:none">
+        <div class="modal-title">Verifikasi Kode 📩</div>
+        <div class="modal-sub">Kode 6-digit telah dikirim ke email Anda (demo: <strong style="color:var(--accent)">123456</strong>)</div>
+        <div class="form-group">
+          <label class="form-label">Kode Verifikasi</label>
+          <input class="form-input" id="forgot-otp" type="text" placeholder="Masukkan 6 digit kode" maxlength="6" />
+        </div>
+        <button class="form-submit" onclick="handleForgotStep2()">Verifikasi Kode →</button>
+        <p style="text-align:center;margin-top:14px;font-size:.8rem;color:var(--muted)">Tidak menerima kode? <a href="#" style="color:var(--accent)" onclick="handleForgotStep1()">Kirim ulang</a></p>
+      </div>
+      <!-- Step 3: Buat Password Baru -->
+      <div id="forgot-step3" style="display:none">
+        <div class="modal-title">Buat Password Baru 🔐</div>
+        <div class="modal-sub">Password baru harus minimal 8 karakter</div>
+        <div class="form-group">
+          <label class="form-label">Password Baru</label>
+          <input class="form-input" id="forgot-newpass" type="password" placeholder="Min. 8 karakter" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Konfirmasi Password</label>
+          <input class="form-input" id="forgot-confirmpass" type="password" placeholder="Ulangi password baru" />
+        </div>
+        <button class="form-submit" onclick="handleForgotStep3()">Simpan Password Baru →</button>
+      </div>
+      <!-- Step 4: Sukses -->
+      <div id="forgot-step4" style="display:none">
+        <div class="success-state">
+          <div class="success-circle">✅</div>
+          <div class="success-title" style="font-size:1.2rem">Password Berhasil Diubah!</div>
+          <div class="success-msg">Silakan masuk menggunakan password baru Anda.</div>
+          <button class="form-submit" onclick="closeForgotModal();openModal('login')" style="background:linear-gradient(135deg,var(--primary-dark),var(--primary))">Masuk Sekarang →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MODAL TAMBAH PENGGUNA (ADMIN) -->
+<div class="modal-overlay" id="modal-tambah-pengguna" onclick="closeTambahPengguna(event)">
+  <div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeTambahPengguna()">✕</button>
+    <div class="modal-inner">
+      <div class="modal-title">Tambah Pengguna Baru 👤</div>
+      <div class="modal-sub">Admin menambah akun secara manual ke sistem</div>
+      <div class="form-group">
+        <label class="form-label">Peran</label>
+        <div class="role-select">
+          <div class="rs-option selected" id="tp-penjual" onclick="selectTambahRole('Penjual')"><span class="rs-option-icon">🏭</span>Penjual</div>
+          <div class="rs-option" id="tp-pembeli" onclick="selectTambahRole('Pembeli')"><span class="rs-option-icon">🛒</span>Pembeli</div>
+          <div class="rs-option" id="tp-admin" onclick="selectTambahRole('Admin')"><span class="rs-option-icon">⚙️</span>Admin</div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Nama Lengkap / Perusahaan</label><input class="form-input" id="tp-nama" type="text" placeholder="Nama pengguna / perusahaan" /></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="tp-email" type="email" placeholder="contoh@email.com" /></div>
+      <div class="form-group"><label class="form-label">No. HP</label><input class="form-input" id="tp-hp" type="tel" placeholder="08xxxxxxxxxx" /></div>
+      <div class="form-group"><label class="form-label">Password</label><input class="form-input" id="tp-password" type="password" placeholder="Min. 8 karakter" /></div>
+      <div class="form-group">
+        <label class="form-label">Status Awal</label>
+        <select class="form-input form-select-dark" id="tp-status">
+          <option value="Aktif">Aktif</option>
+          <option value="Terverifikasi">Terverifikasi</option>
+          <option value="Pending">Pending</option>
+        </select>
+      </div>
+      <button class="form-submit" id="btn-tambah-pengguna" onclick="submitTambahPengguna()">Tambah Pengguna →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MODAL TAMBAH PESANAN (ADMIN) -->
+<div class="modal-overlay" id="modal-tambah-pesanan-admin" onclick="closeTambahPesananAdmin(event)">
+  <div class="modal" style="max-width:520px">
+    <button class="modal-close" onclick="closeTambahPesananAdmin()">✕</button>
+    <div class="modal-inner">
+      <div class="modal-title">Tambah Pesanan Baru 📦</div>
+      <div class="modal-sub">Input pesanan secara manual oleh admin</div>
+      <div class="form-group">
+        <label class="form-label">Produk</label>
+        <select class="form-input form-select-dark" id="tpa-produk" onchange="updateTambahPesananInfo()">
+          <option value="">— Pilih Produk —</option>
+        </select>
+      </div>
+      <div id="tpa-info-box" style="display:none;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:10px;padding:12px 14px;font-size:.8rem;color:var(--light);margin-bottom:14px"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group"><label class="form-label">Jumlah</label><input class="form-input" id="tpa-qty" type="number" placeholder="0" min="1" oninput="updateTambahPesananTotal()" /></div>
+        <div class="form-group"><label class="form-label">Total Otomatis</label><input class="form-input" id="tpa-total-display" type="text" placeholder="Rp 0" readonly style="color:var(--accent);font-weight:700;opacity:1" /></div>
+      </div>
+      <div class="form-group"><label class="form-label">Nama Pembeli</label><input class="form-input" id="tpa-pembeli" type="text" placeholder="Nama pembeli / perusahaan" /></div>
+      <div class="form-group"><label class="form-label">Alamat Pengiriman</label><input class="form-input" id="tpa-alamat" type="text" placeholder="Jalan, Kota, Provinsi" /></div>
+      <div class="form-group">
+        <label class="form-label">Status Pesanan</label>
+        <select class="form-input form-select-dark" id="tpa-status">
+          <option value="menunggu">Menunggu Pembayaran</option>
+          <option value="diproses">Sedang Diproses</option>
+          <option value="dikonfirmasi">Dikonfirmasi</option>
+          <option value="dikirim">Sedang Dikirim</option>
+          <option value="selesai">Selesai</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Catatan (opsional)</label><textarea class="form-input" id="tpa-catatan" rows="2" placeholder="Catatan tambahan…" style="resize:vertical"></textarea></div>
+      <button class="form-submit" id="btn-tambah-pesanan-admin" onclick="submitTambahPesananAdmin()">Buat Pesanan →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ CHAT WIDGET -->
+<div class="chat-widget" id="chat-widget">
+  <!-- Chat Window -->
+  <div class="chat-window" id="chat-window">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar-dot">
+          <div class="chat-avatar-dot-inner"></div>
+        </div>
+        <div>
+          <div class="chat-header-name">UD. LUAS JAYA Support</div>
+          <div class="chat-header-status">● Online sekarang</div>
+        </div>
+      </div>
+      <button class="chat-header-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg-wrap admin-wrap">
+        <div class="chat-msg-avatar">LJ</div>
+        <div class="chat-msg admin">
+          Halo! 👋 Selamat datang di UD. LUAS JAYA. Ada yang bisa kami bantu?
+        </div>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" class="chat-input" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter')sendChat()" />
+      <button class="chat-send-btn" onclick="sendChat()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Float Button -->
+  <button class="chat-float-btn" id="chat-float-btn" onclick="toggleChat()">
+    <span class="chat-icon-open">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    </span>
+    <span class="chat-icon-close" style="display:none">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </span>
+    <span class="chat-notif-dot" id="chat-notif-dot"></span>
+  </button>
+</div>
+
+<!-- ═══════════════════════ MODAL TAMBAH PRODUK ADMIN -->
+<div class="modal-overlay" id="modal-tambah-produk-admin" onclick="closeTambahProdukAdmin(event)">
+  <div class="modal" style="max-width:560px">
+    <button class="modal-close" onclick="closeTambahProdukAdmin()">✕</button>
+    <div class="modal-inner">
+      <div class="modal-title">➕ Tambah Produk</div>
+      <div class="modal-sub">Tambah produk ke katalog — bisa sekalian daftarkan penjual baru</div>
+
+      <div class="form-group">
+        <label class="form-label">Penjual</label>
+        <select class="form-input" id="tprod-penjual" onchange="onChangePenjualDropdown()">
+          <option value="">— Pilih Penjual —</option>
+        </select>
+      </div>
+
+      <!-- Section penjual baru (muncul kalau pilih "+ Tambah Penjual Baru") -->
+      <div id="tprod-new-penjual-sec" style="display:none;background:rgba(99,102,241,.07);border:1px solid rgba(99,102,241,.2);border-radius:12px;padding:16px;margin-bottom:14px">
+        <div style="font-size:.82rem;font-weight:700;color:var(--violet);margin-bottom:12px">👤 Data Penjual Baru</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="form-group"><label class="form-label">Nama Penjual</label><input class="form-input" id="tprod-np-nama" type="text" placeholder="Nama perusahaan / CV / UD" /></div>
+          <div class="form-group"><label class="form-label">Email Login</label><input class="form-input" id="tprod-np-email" type="email" placeholder="email@contoh.com" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">Password Login (min. 8 karakter)</label><input class="form-input" id="tprod-np-pw" type="password" placeholder="Min. 8 karakter" /></div>
+        <div style="font-size:.75rem;color:var(--muted)">⚡ Penjual baru akan langsung bisa login dengan email & password di atas.</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="form-group"><label class="form-label">Nama Produk</label><input class="form-input" id="tprod-nama" type="text" placeholder="Contoh: Scrap Besi Campuran" /></div>
+        <div class="form-group"><label class="form-label">Kategori</label>
+          <select class="form-input" id="tprod-kat">
+            <option value="">Pilih Kategori</option>
+            <option>Logam &amp; Besi</option><option>Plastik</option><option>Kertas &amp; Karton</option>
+            <option>Elektronik</option><option>Kayu</option><option>Kimia &amp; Oli</option>
+            <option>Tekstil Industri</option><option>Baterai &amp; Aki</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div class="form-group"><label class="form-label">Harga (Rp)</label><input class="form-input" id="tprod-harga" type="number" placeholder="0" /></div>
+        <div class="form-group"><label class="form-label">Stok</label><input class="form-input" id="tprod-stok" type="number" placeholder="0" /></div>
+        <div class="form-group"><label class="form-label">Satuan</label>
+          <select class="form-input" id="tprod-satuan">
+            <option value="kg">kg</option><option value="pcs">pcs</option><option value="liter">liter</option><option value="ton">ton</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Lokasi</label><input class="form-input" id="tprod-lokasi" type="text" placeholder="Kota, Provinsi" /></div>
+      <div class="form-group"><label class="form-label">Deskripsi (opsional)</label><textarea class="form-input" id="tprod-desc" rows="2" placeholder="Kondisi, spesifikasi…" style="resize:vertical"></textarea></div>
+      <button class="form-submit" onclick="submitTambahProdukAdmin()">Upload Produk →</button>
+    </div>
+  </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>
